@@ -211,17 +211,3 @@ If this repo helped you:
 * 🔗 Share it with fellow learners
 
 Let’s learn SQL **the right way** 🚀
-
-````
-
----
-
-## ✅ After Updating README
-
-Run this:
-
-```bash
-git add README.md
-git commit -m "Enhance README with badges and professional design"
-git push
-````
