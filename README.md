@@ -1,4 +1,4 @@
-# SQL Window Functions – Hands-on Practice 
+# SQL Window Functions – SET 
 
 A practical, interview-focused repository to master **SQL Window Functions** using real-world datasets and business-style problems.
 
