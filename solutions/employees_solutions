@@ -1,0 +1,122 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- FILE: employees_solutions.sql
+-- TOPIC: SQL Window Functions on Employees Dataset
+-- LEVEL: Intermediate → Advanced
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- =====================================================
+-- Max Salary in the Entire Company (Window Function)
+-- =====================================================
+SELECT e.*,
+       MAX(salary) OVER () AS max_company_salary
+FROM employees e;
+
+
+-- =====================================================
+-- Max Salary per Department
+-- =====================================================
+SELECT e.*,
+       MAX(salary) OVER (PARTITION BY dept_name) AS max_dept_salary
+FROM employees e;
+
+
+-- =====================================================
+-- ROW_NUMBER(): Assign unique row numbers to employees
+-- =====================================================
+SELECT e.*,
+       ROW_NUMBER() OVER () AS row_number
+FROM employees e;
+
+
+-- =====================================================
+-- ROW_NUMBER() Partitioned by Department
+-- =====================================================
+SELECT e.*,
+       ROW_NUMBER() OVER (PARTITION BY dept_name ORDER BY emp_id) AS dept_join_order
+FROM employees e;
+
+
+-- =====================================================
+-- First 2 Employees Joined in Each Department
+-- =====================================================
+SELECT *
+FROM (
+    SELECT e.*,
+           ROW_NUMBER() OVER (PARTITION BY dept_name ORDER BY emp_id) AS rn
+    FROM employees e
+) x
+WHERE x.rn < 3;
+
+
+-- =====================================================
+-- Top 3 Highest Paid Employees per Department (RANK)
+-- =====================================================
+SELECT *
+FROM (
+    SELECT e.*,
+           RANK() OVER (PARTITION BY dept_name ORDER BY salary DESC) AS rnk
+    FROM employees e
+) x
+WHERE x.rnk < 4;
+
+
+-- =====================================================
+-- Top 3 Highest Paid Employees per Department (DENSE_RANK)
+-- =====================================================
+SELECT *
+FROM (
+    SELECT e.*,
+           DENSE_RANK() OVER (PARTITION BY dept_name ORDER BY salary DESC) AS dense_rnk
+    FROM employees e
+) x
+WHERE x.dense_rnk < 4;
+
+
+-- =====================================================
+-- Compare RANK, DENSE_RANK, ROW_NUMBER
+-- =====================================================
+SELECT e.*,
+       RANK()        OVER (PARTITION BY dept_name ORDER BY salary DESC) AS rnk,
+       DENSE_RANK()  OVER (PARTITION BY dept_name ORDER BY salary DESC) AS dense_rnk,
+       ROW_NUMBER()  OVER (PARTITION BY dept_name ORDER BY salary DESC) AS row_num
+FROM employees e;
+
+
+-- =====================================================
+-- LAG(): Compare Salary with Previous Employee
+-- =====================================================
+SELECT e.*,
+       LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) AS prev_emp_salary
+FROM employees e;
+
+
+-- =====================================================
+-- LAG() with Offset & Default Value
+-- =====================================================
+SELECT e.*,
+       LAG(salary, 2, 0) OVER (PARTITION BY dept_name ORDER BY emp_id) AS prev_2_emp_salary
+FROM employees e;
+
+
+-- =====================================================
+-- LEAD() and LAG() Combined
+-- =====================================================
+SELECT e.*,
+       LEAD(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) AS next_emp_salary,
+       LAG(salary)  OVER (PARTITION BY dept_name ORDER BY emp_id) AS prev_emp_salary
+FROM employees e;
+
+
+-- =====================================================
+-- Salary Comparison with Previous Employee
+-- =====================================================
+SELECT e.*,
+       LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id) AS prev_emp_salary,
+       CASE
+           WHEN salary > LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id)
+                THEN 'Higher Than Previous Employee'
+           WHEN salary < LAG(salary) OVER (PARTITION BY dept_name ORDER BY emp_id)
+                THEN 'Lower Than Previous Employee'
+           ELSE 'Same As Previous Employee'
+       END AS salary_comparison
+FROM employees e;

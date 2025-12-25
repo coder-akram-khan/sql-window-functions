@@ -1,0 +1,58 @@
+-- =====================================================
+-- Create Employees Table
+-- This table stores employee details such as
+-- ID, Name, Department, and Salary
+-- =====================================================
+CREATE TABLE employees (
+    emp_id INTEGER,                      -- Unique Employee ID
+    emp_name CHARACTER VARYING(50),       -- Employee Name
+    dept_name CHARACTER VARYING(50),      -- Department Name
+    salary INTEGER                       -- Employee Salary
+);
+
+-- =====================================================
+-- Insert Employee Records
+-- =====================================================
+INSERT INTO employees (emp_id, emp_name, dept_name, salary) VALUES
+(101, 'Mohan', 'Admin', 4000),
+(102, 'Rajkumar', 'HR', 3000),
+(103, 'Akbar', 'IT', 4000),
+(104, 'Dorvin', 'Finance', 6500),
+(105, 'Rohit', 'HR', 3000),
+(106, 'Rajesh', 'Finance', 5000),
+(107, 'Preet', 'HR', 7000),
+(108, 'Sneha', 'Admin', 4500),
+(109, 'Vikram', 'IT', 4800),
+(110, 'Priya', 'Finance', 6200),
+(111, 'Arjun', 'HR', 3200),
+(112, 'Kiran', 'IT', 4600),
+(113, 'Neha', 'Admin', 4100),
+(114, 'Suresh', 'Finance', 5800),
+(115, 'Anita', 'HR', 3400),
+(116, 'Ravi', 'IT', 5000),
+(117, 'Meera', 'Admin', 4300),
+(118, 'Hari', 'Finance', 5900),
+(119, 'Sunil', 'HR', 3600),
+(120, 'Lakshmi', 'IT', 4700),
+(121, 'Deepak', 'Admin', 4200),
+(122, 'Shalini', 'Finance', 6300),
+(123, 'Vijay', 'HR', 3800),
+(124, 'Pooja', 'IT', 4900),
+(125, 'Amit', 'Admin', 4400),
+(126, 'Nikhil', 'IT', 5100),
+(127, 'Ritu', 'HR', 3900),
+(128, 'Manoj', 'Finance', 6700),
+(129, 'Kavita', 'Admin', 4600),
+(130, 'Sanjay', 'IT', 5200),
+(131, 'Rekha', 'HR', 4100),
+(132, 'Ashok', 'Finance', 6000),
+(133, 'Payal', 'Admin', 4500),
+(134, 'Rahul', 'IT', 5300);
+
+COMMIT;
+
+-- =====================================================
+-- View All Employees
+-- =====================================================
+
+SELECT * FROM employees;

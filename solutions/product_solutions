@@ -1,0 +1,79 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- FILE: product_solutions.sql
+-- TOPIC: SQL Window Functions on Product Dataset
+-- LEVEL: Intermediate → Advanced
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- =====================================================
+-- Most Expensive Product per Category (FIRST_VALUE)
+-- =====================================================
+SELECT p.*,
+       FIRST_VALUE(product_name)
+       OVER (PARTITION BY product_category ORDER BY price DESC) AS most_expensive_product
+FROM product p;
+
+
+-- =====================================================
+-- Most & Least Expensive Product per Category
+-- (Using Proper Window Framing)
+-- =====================================================
+SELECT p.*,
+       FIRST_VALUE(product_name)
+       OVER w AS most_expensive_product,
+       LAST_VALUE(product_name)
+       OVER w AS least_expensive_product
+FROM product p
+WINDOW w AS (
+    PARTITION BY product_category
+    ORDER BY price DESC
+    RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+);
+
+
+-- =====================================================
+-- Second Most Expensive Product per Category
+-- =====================================================
+SELECT p.*,
+       FIRST_VALUE(product_name) OVER w AS most_expensive_product,
+       NTH_VALUE(product_name, 2) OVER w AS second_most_expensive_product
+FROM product p
+WINDOW w AS (
+    PARTITION BY product_category
+    ORDER BY price DESC
+    RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+);
+
+
+-- =====================================================
+-- Categorize Phones into Expensive / Mid / Cheap (NTILE)
+-- =====================================================
+SELECT product_name,
+       CASE
+           WHEN bucket = 1 THEN 'Expensive Phones'
+           WHEN bucket = 2 THEN 'Mid Range Phones'
+           ELSE 'Cheaper Phones'
+       END AS phone_category
+FROM (
+    SELECT *,
+           NTILE(3) OVER (ORDER BY price DESC) AS bucket
+    FROM product
+    WHERE product_category = 'Phone'
+) x;
+
+
+-- =====================================================
+-- CUME_DIST(): Products Constituting Top 30% by Price
+-- =====================================================
+SELECT product_name,
+       ROUND(CUME_DIST() OVER (ORDER BY price DESC)::numeric * 100, 2) || '%' AS cumulative_percentage
+FROM product
+WHERE ROUND(CUME_DIST() OVER (ORDER BY price DESC)::numeric * 100, 2) <= 30;
+
+
+-- =====================================================
+-- PERCENT_RANK(): Relative Price Position of Products
+-- =====================================================
+SELECT product_name,
+       price,
+       ROUND(PERCENT_RANK() OVER (ORDER BY price)::numeric * 100, 2) AS percent_rank
+FROM product;

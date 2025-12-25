@@ -1,0 +1,103 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- FILE: window_functions_questions.sql
+-- TOPIC: SQL Window Functions – Practice Questions
+-- LEVEL: Intermediate → Advanced
+-- DATASETS: employees, product
+-- NOTE: This file contains ONLY QUESTIONS.
+--       Solutions are available in the /solutions folder.
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+/*
+====================================================
+EMPLOYEES TABLE – WINDOW FUNCTION QUESTIONS
+====================================================
+*/
+
+-- Q1. Find the 2nd highest salary in each department.
+-- Constraint: Do NOT use LIMIT or subqueries with MAX().
+
+-- Q2. Find employees whose salary is greater than
+-- the average salary of their department.
+
+-- Q3. Display each employee’s salary difference
+-- compared to their department’s average salary.
+
+-- Q4. Find employees who earn the maximum salary
+-- in their respective department.
+
+-- Q5. Calculate a running total of salary
+-- department-wise ordered by emp_id.
+
+-- Q6. Find the top 10% highest-paid employees
+-- across the entire company.
+
+-- Q7. Identify employees whose salary is higher
+-- than both the previous and next employee
+-- within the same department.
+
+-- Q8. Assign salary bands (High / Medium / Low)
+-- within each department using NTILE.
+
+-- Q9. Find departments where the salary gap
+-- (maximum salary − minimum salary) is the highest.
+
+-- Q10. Compare each employee’s salary with the
+-- highest salary in their department and
+-- display the salary difference.
+
+
+/*
+====================================================
+PRODUCT TABLE – WINDOW FUNCTION QUESTIONS
+====================================================
+*/
+
+-- Q11. Find the top 2 most expensive products
+-- in each product category.
+
+-- Q12. Show the price difference between each product
+-- and the most expensive product in its category.
+
+-- Q13. Identify products priced above the
+-- median price of their category.
+
+-- Q14. Classify products into Premium / Mid / Budget
+-- within each category using NTILE(3).
+
+-- Q15. Find products that fall into the top 25%
+-- price range category-wise.
+
+-- Q16. Identify outlier products whose price lies
+-- above the 95th percentile.
+
+-- Q17. Rank brands within each category
+-- based on average product price.
+
+-- Q18. Find the cheapest product that still lies
+-- in the top 50% of prices.
+
+-- Q19. Compare pricing strategy of brands
+-- within the same category using window functions.
+
+-- Q20. Find product categories where
+-- price variance is the highest.
+
+
+/*
+====================================================
+CONTRIBUTION GUIDELINES
+====================================================
+
+-- ✔ Write clean, readable SQL
+-- ✔ Use window functions where applicable
+-- ✔ Add comments explaining logic
+-- ✔ Avoid unnecessary subqueries
+
+Feel free to add:
+- More questions
+- Optimized approaches
+- Database-specific solutions (Postgres / MySQL / SQL Server)
+
+Happy Learning 🚀
+*/
