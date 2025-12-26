@@ -13,7 +13,7 @@ Click the **Fork** button on GitHub.
 
 ### Step 2: Clone Your Fork
 ```bash
-git clone https://github.com/<your-username>/sql-window-functions-practice.git
+git clone https://github.com/<your-username>/sql-window-functions.git
 ````
 
 ### Step 3: Create a New Branch
