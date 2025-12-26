@@ -150,7 +150,7 @@ Used for:
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/sql-window-functions-practice.git
+git clone https://github.com/<your-username>/sql-window-functions.git
 ```
 
 ### 2️⃣ Load the datasets
